@@ -1,0 +1,346 @@
+/* RESET & FONTS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background: #0f0f12;
+  color: #ffffff;
+  min-height: screen;
+  overflow: hidden;
+  position: relative;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 1. LIQUID BACKGROUND ANIMATION */
+.liquid-bg {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, #1a102f, #0f0f12);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: float 20s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  width: 400px;
+  height: 400px;
+  background: #1db954;
+  top: -10%;
+  left: 10%;
+  animation-duration: 18s;
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: #7928ca;
+  bottom: -10%;
+  right: 10%;
+  animation-duration: 25s;
+}
+
+.blob-3 {
+  width: 350px;
+  height: 350px;
+  background: #0070f3;
+  top: 40%;
+  left: 50%;
+  animation-duration: 22s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  100% { transform: translate(80px, 50px) scale(1.2) rotate(360deg); }
+}
+
+/* 2. GLASSMORPHISM CORE STYLE */
+.glass-card, .glass-container, .player-bar {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px) saturate(160%);
+  -webkit-backdrop-filter: blur(25px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* LOGIN SCREEN */
+#login-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  display: none;
+  z-index: 100;
+}
+
+#login-screen.active { display: block; }
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.logo-icon { font-size: 40px; margin-bottom: 10px; }
+.login-header h2 { font-size: 26px; font-weight: 700; margin-bottom: 5px;}
+.login-header p { color: #aaa; font-size: 14px; }
+
+/* FORMS & INPUTS */
+.input-group {
+  margin-bottom: 20px;
+}
+.input-group label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #ccc;
+  margin-bottom: 8px;
+}
+.input-group input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+.input-group input:focus {
+  border-color: #1db954;
+  box-shadow: 0 0 10px rgba(29, 185, 84, 0.2);
+}
+
+.btn-primary {
+  width: 100%;
+  background: #1db954;
+  color: black;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.btn-primary:hover { background: #1ed760; transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0); }
+
+.error-msg { color: #ff5e5e; font-size: 13px; margin-bottom: 15px; text-align: center; }
+
+/* 3. MAIN DASHBOARD LAYOUT */
+#main-dashboard {
+  width: 95vw;
+  max-width: 1400px;
+  height: 85vh;
+  margin: 4vh auto;
+  border-radius: 24px;
+  display: none; /* diubah ke flex lewat JS */
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.brand { font-size: 22px; font-weight: 800; color: #1db954; margin-bottom: 40px; }
+.nav-menu { display: flex; flex-direction: column; gap: 10px; }
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.nav-btn:hover, .nav-btn.active {
+  color: white;
+  background: rgba(255,255,255,0.08);
+}
+.btn-logout {
+  background: transparent;
+  border: none;
+  color: #ff5e5e;
+  text-align: left;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* MAIN CONTENT CONTAINER */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  padding-bottom: 120px; /* Space biar ga mentok player */
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.content-header { margin-bottom: 30px; }
+.content-header h2 { font-size: 14px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+.content-header h1 { font-size: 32px; font-weight: 800; margin-top: 5px; }
+
+/* 4. MUSIC MUSIC CARDS (GRID) */
+.songs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+.song-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  position: relative;
+}
+.song-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-5px);
+}
+.card-cover-wrap {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  position: relative;
+  background: #222;
+}
+.card-cover-wrap img { width: 100%; height: 100%; object-cover: cover; }
+.play-btn-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #1db954;
+  color: black;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.2s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.song-card:hover .play-btn-overlay { opacity: 1; transform: translateY(0); }
+.song-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.song-card p { font-size: 13px; color: #aaa; }
+
+/* ADD TO PLAYLIST MINI DROPDOWN */
+.add-pl-btn {
+  background: none; border: none; color: #1db954; font-size: 11px; margin-top: 8px; cursor: pointer; display: block;
+}
+.add-pl-btn:hover { text-decoration: underline; }
+
+/* PLAYLIST TAB COMPONENT */
+.inline-form { display: flex; gap: 10px; max-width: 400px; margin-bottom: 30px; }
+.inline-form input {
+  flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white;
+}
+.playlists-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;}
+.playlist-folder {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); padding: 20px; border-radius: 12px; text-align: center; cursor: pointer;
+}
+.playlist-folder:hover { background: rgba(255,255,255,0.1); }
+.playlist-detail-box { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+.playlist-songs { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.pl-track-row { display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255,255,255,0.02); border-radius: 8px; cursor: pointer;}
+.pl-track-row:hover { background: rgba(255,255,255,0.06); }
+
+/* UPLOAD FORM */
+.glass-form { max-width: 600px; background: rgba(255,255,255,0.01); padding: 25px; border-radius: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.status-box { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; font-size: 13px; font-family: monospace; color: #ddd; margin-bottom: 15px; }
+
+/* 5. FLOATING MUSIC PLAYER BAR (BOTTOM) */
+.player-bar {
+  position: fixed;
+  bottom: 15px;
+  left: 2.5vw;
+  width: 95vw;
+  height: 85px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  z-index: 99;
+}
+
+.player-track-info { display: flex; align-items: center; gap: 15px; width: 25%; }
+#player-cover { width: 55px; height: 55px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); }
+.track-text h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px;}
+.track-text p { font-size: 12px; color: #aaa; }
+
+.player-controls { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 45%; }
+.control-buttons { display: flex; align-items: center; gap: 20px; }
+.control-buttons button { background: none; border: none; color: #aaa; font-size: 16px; cursor: pointer; transition: 0.2s; }
+.control-buttons button:hover { color: white; }
+.control-buttons button.active { color: #1db954; }
+.control-buttons .play-trigger {
+  background: white; color: black; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+.control-buttons .play-trigger:hover { transform: scale(1.05); background: #1ed760; }
+
+.timeline-container { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 500px; font-size: 11px; color: #aaa; }
+.timeline-container input { flex: 1; height: 4px; border-radius: 2px; accent-color: #1db954; cursor: pointer; }
+
+.player-volume { display: flex; align-items: center; gap: 10px; width: 25%; justify-content: flex-end; }
+.player-volume input { width: 80px; height: 4px; accent-color: white; cursor: pointer; }
+
+/* RESPONSIVE DESIGN (MOBILE) */
+@media (max-width: 768px) {
+  #main-dashboard { flex-direction: column; height: 92vh; margin: 2vh auto; }
+  .sidebar { width: 100%; height: auto; padding: 15px 20px; flex-direction: row; align-items: center; }
+  .brand { margin-bottom: 0; font-size: 18px; }
+  .nav-menu { flex-direction: row; gap: 5px; }
+  .nav-btn { padding: 6px 10px; font-size: 13px; }
+  .btn-logout { display: none; }
+  .main-content { padding: 20px; }
+  .form-row { grid-template-columns: 1fr; }
+  .player-track-info { width: 40%; }
+  .player-controls { width: 55%; }
+  .player-volume { display: none; }
+  .player-bar { padding: 0 15px; }
+}
